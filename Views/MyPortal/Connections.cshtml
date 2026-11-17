@@ -1,0 +1,13 @@
+@* Connections of the logged-in customer. *@
+@model IEnumerable<NexusCommunication.Models.Connection>
+@{ ViewData["Title"] = "My Connections"; }
+<h2>My Connections</h2>
+<table class="table table-striped">
+<thead><tr><th>Account ID</th><th>Plan</th><th>Status</th><th>Activated</th></tr></thead>
+<tbody>
+@foreach (var c in Model) {
+<tr><td>@c.AccountId</td><td>@c.Plan?.Name</td><td>@c.Status</td><td>@c.ActivatedOn.ToString("dd MMM yyyy")</td></tr>
+}
+</tbody>
+</table>
+<a asp-action="Index" class="btn btn-secondary">Back</a>

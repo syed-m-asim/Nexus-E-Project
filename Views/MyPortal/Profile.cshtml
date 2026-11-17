@@ -1,0 +1,16 @@
+@model NexusCommunication.Models.Customer
+@{ ViewData["Title"] = "My Profile"; }
+<h2>My Profile</h2>
+@if (TempData["Success"] != null) { <div class="alert alert-success">@TempData["Success"]</div> }
+@if (TempData["Error"] != null) { <div class="alert alert-danger">@TempData["Error"]</div> }
+<div class="card p-3 no-tilt">
+    <dl class="row">
+        <dt class="col-sm-3">Customer Code</dt><dd class="col-sm-9">@Model.CustomerCode</dd>
+        <dt class="col-sm-3">Name</dt><dd class="col-sm-9">@Model.Name</dd>
+        <dt class="col-sm-3">Phone</dt><dd class="col-sm-9">@Model.Phone</dd>
+        <dt class="col-sm-3">Email</dt><dd class="col-sm-9">@Model.Email</dd>
+        <dt class="col-sm-3">Address</dt><dd class="col-sm-9">@Model.Address</dd>
+    </dl>
+    <a asp-action="EditProfile" class="btn btn-primary">Edit Contact Details</a>
+    <a asp-action="Index" class="btn btn-secondary">Back</a>
+</div>

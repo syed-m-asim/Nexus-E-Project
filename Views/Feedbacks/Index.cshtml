@@ -1,0 +1,19 @@
+@* All feedback given by customers. *@
+@model IEnumerable<NexusCommunication.Models.Feedback>
+@{ ViewData["Title"] = "Feedbacks"; }
+<h2>Customer Feedbacks <a class="btn btn-sm btn-success" asp-action="Create">Add Feedback</a></h2>
+<table class="table table-striped">
+<thead><tr><th>Customer</th><th>Rating</th><th>Comments</th><th>Order</th><th>Date</th><th class="th-actions">Actions</th></tr></thead>
+<tbody>
+@foreach (var f in Model) {
+<tr>
+<td>@f.Customer?.Name</td>
+<td>@f.Rating / 5</td>
+<td>@f.Comments</td>
+<td>@f.Order?.OrderNumber</td>
+<td>@f.CreatedAt.ToString("dd MMM yyyy")</td>
+<td>@if (User.IsInRole("Admin")) { <a asp-action="Delete" asp-route-id="@f.Id" class="text-danger">Delete</a> }</td>
+</tr>
+}
+</tbody>
+</table>

@@ -1,0 +1,8 @@
+@* Delete confirmation page for a purchase order. The record is deleted only after the user confirms (POST + anti-forgery token). *@
+@model NexusCommunication.Models.PurchaseOrder
+@{ ViewData["Title"] = "Delete PO"; }
+<h2>Delete @Model.PoNumber?</h2>
+<p>Vendor: @Model.Vendor?.Name — Total: @Model.TotalAmount.ToString("C")</p>
+<form asp-action="Delete" method="post"><input type="hidden" asp-for="Id" />
+<button type="submit" class="btn btn-danger">Delete</button>
+<a asp-action="Index" class="btn btn-secondary">Cancel</a></form>

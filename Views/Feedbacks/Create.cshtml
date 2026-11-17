@@ -1,0 +1,38 @@
+@* Feedback form (rating 1-5 and comments). Rules come from the Feedback model and FeedbacksController.
+   A customer sees only his own name and his own orders; staff can choose any customer. *@
+@model NexusCommunication.Models.Feedback
+@{
+    ViewData["Title"] = "Give Feedback";
+    bool isCustomer = ViewBag.IsCustomer == true;
+}
+<h2>Submit Feedback</h2>
+<form asp-action="Create" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    @if (isCustomer)
+    {
+        <div class="mb-2">
+            <label>Customer</label>
+            <input class="form-control" value="@ViewBag.CustomerName" readonly />
+            <input type="hidden" asp-for="CustomerId" />
+        </div>
+    }
+    else
+    {
+        <div class="mb-2"><label>Customer</label><select asp-for="CustomerId" class="form-select" required asp-items="ViewBag.CustomerId"><option value="">-- Select customer --</option></select><span asp-validation-for="CustomerId" class="text-danger"></span></div>
+    }
+    <div class="mb-2"><label>Related Order (optional)</label><select asp-for="OrderId" class="form-select" asp-items="ViewBag.OrderId"><option value="">-- No specific order --</option></select><span asp-validation-for="OrderId" class="text-danger"></span></div>
+    <div class="mb-2"><label asp-for="Rating"></label><select asp-for="Rating" class="form-select"><option value="5">5 - Excellent</option><option value="4">4</option><option value="3">3</option><option value="2">2</option><option value="1">1 - Poor</option></select><span asp-validation-for="Rating" class="text-danger"></span></div>
+    <div class="mb-2"><label asp-for="Comments"></label><textarea asp-for="Comments" placeholder="Write your feedback (optional)" class="form-control" rows="3" maxlength="1000"></textarea><span asp-validation-for="Comments" class="text-danger"></span></div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    @if (isCustomer)
+    {
+        <a asp-controller="MyPortal" asp-action="Index" class="btn btn-secondary">Cancel</a>
+    }
+    else
+    {
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    }
+</form>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

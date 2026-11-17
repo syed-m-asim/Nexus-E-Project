@@ -1,0 +1,14 @@
+@* Details page: read-only view of one plan. *@
+@model NexusCommunication.Models.Plan
+@{ ViewData["Title"] = "Plan Details"; }
+<h2>@Model.Name</h2>
+<dl class="row">
+<dt class="col-sm-3">Type</dt><dd class="col-sm-9">@Model.ConnectionType</dd>
+<dt class="col-sm-3">Group</dt><dd class="col-sm-9">@Model.PlanGroup</dd>
+<dt class="col-sm-3">Price</dt><dd class="col-sm-9">@Model.Price.ToString("C")</dd>
+<dt class="col-sm-3">Validity</dt><dd class="col-sm-9">@Model.ValidityDays days</dd>
+<dt class="col-sm-3">Hours</dt><dd class="col-sm-9">@Model.Hours</dd>
+<dt class="col-sm-3">Speed</dt><dd class="col-sm-9">@Model.SpeedKbps Kbps</dd>
+</dl>
+<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+<a asp-action="Index" class="btn btn-secondary">Back</a>

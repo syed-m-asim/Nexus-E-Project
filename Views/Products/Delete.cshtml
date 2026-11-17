@@ -1,0 +1,8 @@
+@* Delete confirmation page for a product. The record is deleted only after the user confirms (POST + anti-forgery token). *@
+@model NexusCommunication.Models.Product
+@{ ViewData["Title"] = "Delete Product"; }
+<h2>Delete @Model.Name?</h2>
+@if (!string.IsNullOrEmpty(Model.ImagePath)) { <img src="@Model.ImagePath" class="product-preview mb-3" alt="@Model.Name" /> }
+<form asp-action="Delete" method="post"><input type="hidden" asp-for="Id" />
+<button type="submit" class="btn btn-danger">Delete</button>
+<a asp-action="Index" class="btn btn-secondary">Cancel</a></form>

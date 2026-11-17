@@ -1,0 +1,23 @@
+@* Filed documents with filters (customer, year, city). *@
+@model IEnumerable<NexusCommunication.Models.CustomerDocument>
+@{ ViewData["Title"] = "Customer Documents"; }
+<h2>Customer Documents <a class="btn btn-sm btn-success" asp-action="Upload">Upload / File</a></h2>
+<form method="get" class="row g-2 mb-3">
+<div class="col-12 col-sm-6 col-md-3"><select name="customerId" class="form-select" asp-items="ViewBag.CustomerId"><option value="">All customers</option></select></div>
+<div class="col-12 col-sm-6 col-md-2"><input name="year" type="number" class="form-control" placeholder="Year" value="@Context.Request.Query["year"]" /></div>
+<div class="col-12 col-sm-6 col-md-3"><select name="cityId" class="form-select" asp-items="ViewBag.CityId"><option value="">All cities</option></select></div>
+<div class="col-12 col-sm-6 col-md-2"><button type="submit" class="btn btn-secondary">Filter</button></div>
+</form>
+<table class="table table-striped table-sm">
+<thead><tr><th>Customer</th><th>Type</th><th>File</th><th>Year</th><th>City</th><th>Uploaded</th><th class="th-actions">Actions</th></tr></thead>
+<tbody>
+@foreach (var d in Model) {
+<tr>
+<td>@d.Customer?.Name</td><td>@d.DocumentType</td>
+<td><a href="@d.StoredPath" target="_blank">@d.OriginalFileName</a></td>
+<td>@d.FiledYear</td><td>@d.City?.Name</td><td>@d.UploadedOn.ToString("dd MMM yyyy")</td>
+<td><a asp-action="Delete" asp-route-id="@d.Id" class="text-danger">Delete</a></td>
+</tr>
+}
+</tbody>
+</table>

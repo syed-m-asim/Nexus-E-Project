@@ -1,0 +1,75 @@
+@* Registration form. Validation comes from RegisterViewModel; always creates a Customer account (login + customer record); staff logins are created by the Admin on the Employees page. *@
+@model NexusCommunication.ViewModels.RegisterViewModel
+@{
+    ViewData["Title"] = "Register";
+}
+<div class="auth-wrap">
+    <div class="col-md-6 w-100" style="max-width:560px">
+        <div class="card shadow auth-card">
+            <div class="card-header bg-success text-white">
+                <h4 class="mb-0"><i class="bi bi-person-plus"></i> Create your account</h4>
+            </div>
+            <div class="card-body">
+                <form asp-action="Register" method="post">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="mb-3">
+                        <label asp-for="FullName" class="form-label"></label>
+                        <input asp-for="FullName" placeholder="e.g. Ahmed Khan" class="form-control" maxlength="150" required />
+                        <span asp-validation-for="FullName" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Email" class="form-label"></label>
+                        <input asp-for="Email" placeholder="e.g. name@example.com" class="form-control" maxlength="150" required />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Phone" class="form-label"></label>
+                        <input asp-for="Phone" type="tel" placeholder="e.g. 0300 1234567" class="form-control" maxlength="30" required />
+                        <div class="form-text">If a retail outlet has already registered you, enter the same number you gave them.</div>
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="CityId" class="form-label"></label>
+                        <select asp-for="CityId" asp-items="ViewBag.CityId" class="form-select" required>
+                            <option value="">-- Select your city --</option>
+                        </select>
+                        <span asp-validation-for="CityId" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Address" class="form-label"></label>
+                        <textarea asp-for="Address" rows="2" placeholder="House / street / area" class="form-control" maxlength="300" required></textarea>
+                        <span asp-validation-for="Address" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Password" class="form-label"></label>
+                        <div class="input-group">
+                            <input asp-for="Password" class="form-control" placeholder="At least 6 characters and one digit" id="regPassword" required />
+                            <button class="btn btn-outline-secondary" type="button" id="toggleRegPassword" title="Show/Hide password">
+                                <i class="bi bi-eye" id="regEyeIcon"></i>
+                            </button>
+                        </div>
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="ConfirmPassword" class="form-label"></label>
+                        <div class="input-group">
+                            <input asp-for="ConfirmPassword" class="form-control" placeholder="Re-enter the password" id="regConfirmPassword" required />
+                            <button class="btn btn-outline-secondary" type="button" id="toggleRegConfirmPassword" title="Show/Hide password">
+                                <i class="bi bi-eye" id="regConfirmEyeIcon"></i>
+                            </button>
+                        </div>
+                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                    </div>
+                    <button type="submit" class="btn btn-success w-100">Register</button>
+                </form>
+                <hr />
+                <p class="text-center mb-0">
+                    <a asp-action="Login">Already have an account? Login</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,37 @@
+@* Add-employee form (Admin). A retail employee must have a retail store (Employee model). *@
+@model NexusCommunication.Models.Employee
+@{ ViewData["Title"] = "Add Employee"; }
+<h2>Add Employee</h2>
+<form asp-action="Create" method="post">
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="mb-2"><label asp-for="Name"></label><input asp-for="Name" placeholder="e.g. Ali Raza" class="form-control" required /><span asp-validation-for="Name" class="text-danger"></span></div>
+<div class="mb-2"><label asp-for="Role"></label><select asp-for="Role" class="form-select" required asp-items="Html.GetEnumSelectList<NexusCommunication.Models.UserRole>()"><option value="">-- Select role --</option></select><span asp-validation-for="Role" class="text-danger"></span></div>
+<div class="mb-2"><label asp-for="Phone"></label><input asp-for="Phone" type="tel" placeholder="e.g. 03001234567" class="form-control" required /><span asp-validation-for="Phone" class="text-danger"></span></div>
+<div class="mb-2"><label asp-for="Email"></label><input asp-for="Email" placeholder="e.g. name@example.com" class="form-control" required /><span asp-validation-for="Email" class="text-danger"></span></div>
+<div class="mb-2"><label asp-for="Designation"></label><input asp-for="Designation" placeholder="e.g. Technician" class="form-control" required /><span asp-validation-for="Designation" class="text-danger"></span></div>
+<div class="mb-2"><label asp-for="Salary"></label><input asp-for="Salary" placeholder="e.g. 50000" class="form-control" required /><span asp-validation-for="Salary" class="text-danger"></span></div>
+<div class="mb-2"><label asp-for="JoinDate">Join Date</label><input asp-for="JoinDate" type="date" class="form-control" value="@DateTime.Today.ToString("yyyy-MM-dd")" required /><span asp-validation-for="JoinDate" class="text-danger"></span></div>
+<div class="mb-2">
+    <label asp-for="Password">Login Password</label>
+    <div class="input-group">
+        <input asp-for="Password" 
+               placeholder="At least 6 characters and one digit" 
+               type="password" 
+               class="form-control" 
+               autocomplete="new-password" 
+               id="employeePassword" 
+               required />
+        <button class="btn btn-outline-secondary" type="button" id="toggleEmployeePassword" title="Show/Hide password">
+            <i class="bi bi-eye" id="employeeEyeIcon"></i>
+        </button>
+    </div>
+    <span asp-validation-for="Password" class="text-danger"></span>
+    <small class="form-text text-muted">
+        The login user name is the e-mail above; the login role is the role selected here.
+    </small>
+</div>
+<div class="mb-2"><label>Retail Store</label><select asp-for="RetailStoreId" class="form-select" required asp-items="ViewBag.RetailStoreId"><option value="">-- Select store --</option></select><span asp-validation-for="RetailStoreId" class="text-danger"></span></div>
+<button type="submit" class="btn btn-primary">Save</button>
+<a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

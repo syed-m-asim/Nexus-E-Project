@@ -1,0 +1,20 @@
+@* Edit-employee form (Admin). Same validation as Create. *@
+@model NexusCommunication.Models.Employee
+@{ ViewData["Title"] = "Edit Employee"; }
+<h2>Edit Employee</h2>
+<form asp-action="Edit" method="post">
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<input type="hidden" asp-for="Id" />
+<div class="mb-2"><label asp-for="Name"></label><input asp-for="Name" placeholder="e.g. Ali Raza" class="form-control" required /><span asp-validation-for="Name" class="text-danger"></span></div>
+<div class="mb-2"><label asp-for="Role"></label><select asp-for="Role" class="form-select" required asp-items="Html.GetEnumSelectList<NexusCommunication.Models.UserRole>()"><option value="">-- Select role --</option></select><span asp-validation-for="Role" class="text-danger"></span></div>
+<div class="mb-2"><label asp-for="Phone"></label><input asp-for="Phone" type="tel" placeholder="e.g. 03001234567" class="form-control" required /><span asp-validation-for="Phone" class="text-danger"></span></div>
+<div class="mb-2"><label asp-for="Email"></label><input asp-for="Email" placeholder="e.g. name@example.com" class="form-control" required /><span asp-validation-for="Email" class="text-danger"></span></div>
+<div class="mb-2"><label asp-for="Designation"></label><input asp-for="Designation" placeholder="e.g. Technician" class="form-control" required /><span asp-validation-for="Designation" class="text-danger"></span></div>
+<div class="mb-2"><label asp-for="Salary"></label><input asp-for="Salary" placeholder="e.g. 50000" class="form-control" required /><span asp-validation-for="Salary" class="text-danger"></span></div>
+<input type="hidden" asp-for="JoinDate" />
+<div class="mb-2"><label>Retail Store</label><select asp-for="RetailStoreId" class="form-select" required asp-items="ViewBag.RetailStoreId"><option value="">-- Select store --</option></select><span asp-validation-for="RetailStoreId" class="text-danger"></span></div>
+<div class="mb-2 form-check"><input asp-for="IsActive" class="form-check-input" /><label asp-for="IsActive" class="form-check-label"></label></div>
+<button type="submit" class="btn btn-primary">Save</button>
+<a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

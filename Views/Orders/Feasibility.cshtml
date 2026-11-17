@@ -1,0 +1,38 @@
+@* Feasibility check form (technical staff). Inputs are limited with HTML attributes and checked again in OrdersController.Feasibility. *@
+@model NexusCommunication.Models.Order
+@{ ViewData["Title"] = "Feasibility Check"; }
+<h2>Feasibility Check — @Model.OrderNumber</h2>
+<p>Customer: <strong>@Model.Customer?.Name</strong> | Type: <strong>@Model.ConnectionType</strong> | Plan: @Model.Plan?.Name</p>
+@if (Model.ConnectionType == NexusCommunication.Models.ConnectionType.DialUp)
+{
+    <div class="alert alert-info">
+        @if (Model.ExistingLandlineConnectionId.HasValue)
+        { <span>Existing landline — <strong>Internet feasibility only</strong> required.</span> }
+        else
+        { <span>New dial-up — both <strong>Landline</strong> and <strong>Internet</strong> feasibility required.</span> }
+    </div>
+}
+@if (Model.FeasibilityChecks?.Any() == true)
+{
+    <h5>Previous checks</h5>
+    <table class="table table-sm"><thead><tr><th>Type</th><th>Distance km</th><th>Server</th><th>Feasible</th><th>Remarks</th><th>Date</th></tr></thead>
+    <tbody>
+    @foreach (var c in Model.FeasibilityChecks)
+    {
+        <tr><td>@c.CheckType</td><td>@c.DistanceKm</td><td>@(c.ServerAvailable ? "Yes" : "No")</td>
+        <td>@(c.IsFeasible ? "Yes" : "No")</td><td>@c.Remarks</td><td>@c.CheckedOn.ToString("g")</td></tr>
+    }
+    </tbody></table>
+}
+<form asp-action="Feasibility" method="post" class="card card-body no-tilt">
+    <input type="hidden" name="id" value="@Model.Id" />
+    <div class="mb-2"><label>Check Type</label>
+        <select name="checkType" class="form-select" asp-items="Html.GetEnumSelectList<NexusCommunication.Models.FeasibilityType>()"></select>
+    </div>
+    <div class="mb-2"><label>Distance (km)</label><input name="distanceKm" placeholder="e.g. 3.5" type="number" step="0.1" min="0" max="10000" class="form-control" value="0" required /></div>
+    <div class="mb-2 form-check"><input name="serverAvailable" type="checkbox" value="true" class="form-check-input" id="sa" checked /><label for="sa" class="form-check-label">Server available</label></div>
+    <div class="mb-2 form-check"><input name="isFeasible" type="checkbox" value="true" class="form-check-input" id="if" checked /><label for="if" class="form-check-label">Area is feasible</label></div>
+    <div class="mb-2"><label>Remarks</label><input name="remarks" placeholder="Optional remarks" class="form-control" maxlength="500" /></div>
+    <button type="submit" class="btn btn-warning">Save Feasibility Check</button>
+    <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-secondary">Back</a>
+</form>

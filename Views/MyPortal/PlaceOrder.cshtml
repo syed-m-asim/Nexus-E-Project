@@ -1,0 +1,21 @@
+@* Customer self-service order form. Customer id is taken from the login; other rules come from the Order model and Helpers/OrderValidation.cs. *@
+@model NexusCommunication.Models.Order
+@{ ViewData["Title"] = "Place Order"; }
+<h2>Place New Connection Order</h2>
+<form asp-action="PlaceOrder" method="post">
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<input type="hidden" asp-for="CustomerId" />
+<div class="mb-2"><label>City</label><select asp-for="CityId" class="form-select" required asp-items="ViewBag.CityId"><option value="">-- Select city --</option></select><span asp-validation-for="CityId" class="text-danger"></span></div>
+<div class="mb-2"><label>Retail Store</label><select asp-for="RetailStoreId" class="form-select" required asp-items="ViewBag.RetailStoreId"><option value="">-- Select store --</option></select><span asp-validation-for="RetailStoreId" class="text-danger"></span></div>
+<div class="mb-2"><label>Connection Type</label><select asp-for="ConnectionType" class="form-select" required asp-items="Html.GetEnumSelectList<NexusCommunication.Models.ConnectionType>()"><option value="">-- Select connection type --</option></select><span asp-validation-for="ConnectionType" class="text-danger"></span></div>
+<div class="mb-2"><label>Plan</label><select asp-for="PlanId" class="form-select" required asp-items="ViewBag.PlanId"><option value="">-- Select plan --</option></select><span asp-validation-for="PlanId" class="text-danger"></span></div>
+<div class="mb-2"><label>Landline Plan (Dial-Up, new line)</label><select asp-for="LandlinePlanId" class="form-select" asp-items="ViewBag.LandlinePlanId"><option value="">-- None --</option></select><span asp-validation-for="LandlinePlanId" class="text-danger"></span></div>
+<div class="mb-2"><label>My Existing Landline (Dial-Up)</label><select asp-for="ExistingLandlineConnectionId" class="form-select" asp-items="ViewBag.ExistingLandlineConnectionId"><option value="">-- None --</option></select><span asp-validation-for="ExistingLandlineConnectionId" class="text-danger"></span></div>
+<div class="mb-2"><label>Equipment</label><select asp-for="EquipmentProductId" class="form-select" asp-items="ViewBag.EquipmentProductId"><option value="">--</option></select><span asp-validation-for="EquipmentProductId" class="text-danger"></span></div>
+<partial name="_EquipmentPreview" />
+<div class="mb-2"><label asp-for="InstallationAddress"></label><input asp-for="InstallationAddress" placeholder="House / street / area where the line is installed" class="form-control" required /><span asp-validation-for="InstallationAddress" class="text-danger"></span></div>
+<div class="mb-2"><label asp-for="NumberOfConnections"></label><input asp-for="NumberOfConnections" placeholder="1 to 1000" class="form-control" required /><span asp-validation-for="NumberOfConnections" class="text-danger"></span></div>
+<button type="submit" class="btn btn-primary">Submit Order</button>
+<a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

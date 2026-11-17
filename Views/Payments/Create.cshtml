@@ -1,0 +1,14 @@
+@* Record-payment form. Amount / bill / mode rules come from the Payment model; balance-due rule is checked in PaymentsController. *@
+@model NexusCommunication.Models.Payment
+@{ ViewData["Title"] = "Record Payment"; }
+<h2>Record Payment</h2>
+<form asp-action="Create" method="post">
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="mb-2"><label>Bill</label><select asp-for="BillId" class="form-select" required asp-items="ViewBag.BillId"><option value="">-- Select bill --</option></select><span asp-validation-for="BillId" class="text-danger"></span></div>
+<div class="mb-2"><label asp-for="Amount"></label><input asp-for="Amount" placeholder="e.g. 100.00" class="form-control" required /><span asp-validation-for="Amount" class="text-danger"></span></div>
+<div class="mb-2"><label asp-for="Mode"></label><select asp-for="Mode" class="form-select" asp-items="Html.GetEnumSelectList<NexusCommunication.Models.PaymentMode>()"></select><span asp-validation-for="Mode" class="text-danger"></span></div>
+<div class="mb-2"><label asp-for="Reference"></label><input asp-for="Reference" placeholder="Cheque / card / transaction number" class="form-control" /><span asp-validation-for="Reference" class="text-danger"></span></div>
+<button type="submit" class="btn btn-primary">Save Payment</button>
+<a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

@@ -1,0 +1,14 @@
+@* Unpaid bills whose due date has passed. *@
+@model IEnumerable<NexusCommunication.Models.Bill>
+@{ ViewData["Title"] = "Overdue Bills"; }
+<h2>Overdue Bills</h2>
+<table class="table table-striped">
+<thead><tr><th>Bill #</th><th>Account</th><th>Customer</th><th>Due Date</th><th>Balance</th><th>Status</th></tr></thead>
+<tbody>
+@foreach (var b in Model) {
+<tr><td>@b.BillNumber</td><td>@b.Connection?.AccountId</td><td>@b.Connection?.Customer?.Name</td>
+<td>@b.DueDate.ToString("dd MMM yyyy")</td><td>@b.BalanceDue.ToString("C")</td><td>@b.Status</td></tr>
+}
+</tbody>
+</table>
+<a asp-action="Index" class="btn btn-secondary">Back</a>

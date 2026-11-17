@@ -1,0 +1,9 @@
+@* List page: all vendors in a table with action links. *@
+@model IEnumerable<NexusCommunication.Models.Vendor>
+@{ ViewData["Title"] = "Vendors"; }
+<h2>Vendors <a class="btn btn-sm btn-success" asp-action="Create">Add</a></h2>
+<table class="table table-striped"><thead><tr><th>Name</th><th>Contact</th><th>Phone</th><th>Email</th><th class="th-actions">Actions</th></tr></thead>
+<tbody>@foreach (var v in Model) {
+<tr><td>@v.Name</td><td>@v.ContactPerson</td><td>@v.Phone</td><td>@v.Email</td>
+<td><a asp-action="Details" asp-route-id="@v.Id">Details</a> | <a asp-action="Edit" asp-route-id="@v.Id">Edit</a> | <a asp-action="Delete" asp-route-id="@v.Id" class="text-danger">Delete</a></td></tr>
+}</tbody></table>

@@ -1,0 +1,12 @@
+@* Details page: read-only view of one vendor. *@
+@model NexusCommunication.Models.Vendor
+@{ ViewData["Title"] = "Vendor"; }
+<h2>@Model.Name</h2>
+<dl class="row">
+<dt class="col-sm-3">Contact</dt><dd class="col-sm-9">@Model.ContactPerson</dd>
+<dt class="col-sm-3">Phone</dt><dd class="col-sm-9">@Model.Phone</dd>
+<dt class="col-sm-3">Email</dt><dd class="col-sm-9">@Model.Email</dd>
+<dt class="col-sm-3">Address</dt><dd class="col-sm-9">@Model.Address</dd>
+</dl>
+<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+<a asp-action="Index" class="btn btn-secondary">Back</a>

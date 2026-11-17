@@ -1,0 +1,27 @@
+@{
+    ViewData["Title"] = "Equipment Demand";
+    var demand = ViewBag.Demand as System.Collections.IEnumerable;
+}
+<h2>Equipment Demand (from pending orders)</h2>
+<p class="text-muted">Units still needed for orders that are not yet fully provided, compared with current stock.</p>
+<table class="table table-striped">
+<thead><tr><th>Product</th><th>Needed</th><th>In Stock</th><th>Shortfall</th></tr></thead>
+<tbody>
+@if (demand != null)
+{
+    foreach (dynamic row in demand)
+    {
+        int needed = (int)row.Needed;
+        int stock = (int)row.Stock;
+        int shortfall = Math.Max(0, needed - stock);
+        <tr>
+            <td>@row.ProductName</td>
+            <td>@needed</td>
+            <td>@stock</td>
+            <td class="@(shortfall > 0 ? "text-danger fw-bold" : "")">@shortfall</td>
+        </tr>
+    }
+}
+</tbody>
+</table>
+<a asp-action="Index" class="btn btn-secondary">Back to Reports</a>

@@ -1,0 +1,13 @@
+@* Bills of the logged-in customer. *@
+@model IEnumerable<NexusCommunication.Models.Bill>
+@{ ViewData["Title"] = "My Bills"; }
+<h2>My Bills</h2>
+<table class="table table-striped">
+<thead><tr><th>Bill #</th><th>Account</th><th>Total</th><th>Due</th><th>Status</th><th>Date</th></tr></thead>
+<tbody>
+@foreach (var b in Model) {
+<tr><td>@b.BillNumber</td><td>@b.Connection?.AccountId</td><td>@b.TotalAmount.ToString("C")</td><td>@b.BalanceDue.ToString("C")</td><td>@b.Status</td><td>@b.BillDate.ToString("dd MMM yyyy")</td></tr>
+}
+</tbody>
+</table>
+<a asp-action="Index" class="btn btn-secondary">Back</a>

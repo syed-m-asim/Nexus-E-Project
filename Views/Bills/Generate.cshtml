@@ -1,0 +1,19 @@
+@* Generate-bill form (accounts department). Call minutes are limited here and checked again in BillsController.Generate. *@
+@{ ViewData["Title"] = "Generate Bill"; }
+<h2>Generate Bill (Accounts)</h2>
+<form asp-action="Generate" method="post" class="card card-body no-tilt">
+<div class="mb-3">
+<label>Active Connection</label>
+<select name="connectionId" class="form-select" asp-items="ViewBag.ConnectionId" required><option value="">-- Select connection --</option></select>
+</div>
+    <div class="card mb-3">
+        <div class="card-header card card-body no-tilt">Call usage (optional — for landline plans)</div>
+<div class="card-body row g-2">
+<div class="col-12 col-sm-6 col-md-4"><label>Local minutes</label><input name="localMinutes" placeholder="e.g. 120" type="number" value="0" min="0" max="1000000" step="1" class="form-control" /></div>
+<div class="col-12 col-sm-6 col-md-4"><label>STD minutes</label><input name="stdMinutes" placeholder="e.g. 45" type="number" value="0" min="0" max="1000000" step="1" class="form-control" /></div>
+<div class="col-12 col-sm-6 col-md-4"><label>Mobile messaging minutes</label><input name="mobileMinutes" placeholder="e.g. 10" type="number" value="0" min="0" max="1000000" step="1" class="form-control" /></div>
+</div></div>
+<p class="text-muted">Bill includes: plan charge, security deposit (first bill), pending equipment replacements, call usage, bulk discount, and <strong>12.24% service tax</strong>.</p>
+<button type="submit" class="btn btn-primary">Generate Bill</button>
+<a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

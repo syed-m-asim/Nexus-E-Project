@@ -1,0 +1,13 @@
+@* Shows the picture of the equipment chosen in the EquipmentProductId drop-down (data comes from ViewBag.EquipmentImages). *@
+@{ var images = ViewBag.EquipmentImages as Dictionary<int, string> ?? new Dictionary<int, string>(); }
+<img id="equipmentPreview" class="product-preview mb-2" style="display:none" alt="Selected equipment" />
+<script>
+(function () {
+  var images = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(images));
+  var sel = document.getElementById('EquipmentProductId'), img = document.getElementById('equipmentPreview');
+  if (!sel || !img) return;
+  function show() { var p = images[sel.value]; if (p) { img.src = p; img.style.display = 'block'; } else { img.style.display = 'none'; } }
+  sel.addEventListener('change', show);
+  show();
+})();
+</script>

@@ -1,0 +1,13 @@
+@* Orders of the logged-in customer. *@
+@model IEnumerable<NexusCommunication.Models.Order>
+@{ ViewData["Title"] = "My Orders"; }
+<h2>My Orders</h2>
+<table class="table table-striped">
+<thead><tr><th>Order ID</th><th>Plan</th><th>Type</th><th>Status</th><th>Date</th></tr></thead>
+<tbody>
+@foreach (var o in Model) {
+<tr><td>@o.OrderNumber</td><td>@o.Plan?.Name</td><td>@o.ConnectionType</td><td>@o.Status</td><td>@o.PlacedOn.ToString("dd MMM yyyy")</td></tr>
+}
+</tbody>
+</table>
+<a asp-action="Index" class="btn btn-secondary">Back</a>

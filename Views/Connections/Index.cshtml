@@ -1,0 +1,17 @@
+@* List of all connections with their account ids. *@
+@model IEnumerable<NexusCommunication.Models.Connection>
+@{ ViewData["Title"] = "Connections"; }
+<h2>Connections</h2>
+<table class="table table-striped table-sm">
+<thead><tr><th>Account ID</th><th>Customer</th><th>Type</th><th>Plan</th><th>Status</th><th>Activated</th><th class="th-actions">Actions</th></tr></thead>
+<tbody>
+@foreach (var c in Model) {
+<tr>
+<td>@c.AccountId</td><td>@c.Customer?.Name</td><td>@c.ConnectionType</td><td>@c.Plan?.Name</td>
+<td><span class="badge bg-success">@c.Status</span></td>
+<td>@c.ActivatedOn.ToString("dd MMM yyyy")</td>
+<td><a asp-action="Details" asp-route-id="@c.Id">Details</a></td>
+</tr>
+}
+</tbody>
+</table>

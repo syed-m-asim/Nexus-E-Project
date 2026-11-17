@@ -1,0 +1,14 @@
+@* Details page: read-only view of one product. *@
+@model NexusCommunication.Models.Product
+@{ ViewData["Title"] = "Product"; }
+<h2>@Model.Name</h2>
+@if (!string.IsNullOrEmpty(Model.ImagePath)) { <img src="@Model.ImagePath" class="product-preview mb-3" alt="@Model.Name" /> } else { <p class="product-noimg mb-3">No image uploaded.</p> }
+<dl class="row">
+<dt class="col-sm-3">Category</dt><dd class="col-sm-9">@Model.Category</dd>
+<dt class="col-sm-3">Stock</dt><dd class="col-sm-9">@Model.StockQty (reorder at @Model.ReorderLevel)</dd>
+<dt class="col-sm-3">Monthly Rental</dt><dd class="col-sm-9">@Model.MonthlyRental.ToString("C")</dd>
+<dt class="col-sm-3">Replacement Charge</dt><dd class="col-sm-9">@Model.ReplacementCharge.ToString("C")</dd>
+<dt class="col-sm-3">Vendor</dt><dd class="col-sm-9">@Model.Vendor?.Name</dd>
+</dl>
+<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+<a asp-action="Index" class="btn btn-secondary">Back</a>

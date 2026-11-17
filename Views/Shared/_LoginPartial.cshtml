@@ -1,0 +1,37 @@
+@* Login / register buttons for guests; avatar, name, role and logout button (POST + anti-forgery token) for signed-in users. *@
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<ul class="navbar-nav align-items-xl-center gap-xl-2">
+@if (SignInManager.IsSignedIn(User))
+{
+    var currentUser = await UserManager.GetUserAsync(User);
+    var shownName = currentUser?.FullName ?? User.Identity?.Name ?? "User";
+    var roleLabel = User.IsInRole("Admin") ? "Admin" : User.IsInRole("RetailEmployee") ? "Retail" : User.IsInRole("Technical") ? "Technical" : User.IsInRole("Accounts") ? "Accounts" : "Customer";
+    <li class="nav-item">
+        <div class="user-chip">
+            <span class="user-avatar">@shownName.Substring(0, 1).ToUpper()</span>
+            <span><div class="user-name">@shownName</div><div class="user-role">@roleLabel</div></span>
+        </div>
+    </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="Account" asp-action="ChangePassword" title="Change Password"><i class="bi bi-key"></i><span class="d-xl-none"> Change Password</span></a>
+        </li>
+    <li class="nav-item">
+        <form class="form-inline" asp-controller="Account" asp-action="Logout" method="post">
+            @Html.AntiForgeryToken()
+            <button type="submit" class="nav-link btn btn-link"><i class="bi bi-box-arrow-right"></i> Logout</button>
+        </form>
+    </li>
+}
+else
+{
+    <li class="nav-item">
+        <a class="nav-link" asp-controller="Account" asp-action="Register"><i class="bi bi-person-plus"></i> Register</a>
+    </li>
+    <li class="nav-item">
+        <a class="btn btn-primary btn-sm px-3" asp-controller="Account" asp-action="Login"><i class="bi bi-box-arrow-in-right"></i> Login</a>
+    </li>
+}
+</ul>

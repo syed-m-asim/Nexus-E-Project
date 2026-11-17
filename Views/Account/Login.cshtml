@@ -1,0 +1,47 @@
+@* Login form. Validation messages come from LoginViewModel and the controller (invalid login attempt). *@
+@model NexusCommunication.ViewModels.LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+}
+<div class="auth-wrap">
+    <div class="col-md-5 col-lg-4 w-100" style="max-width:460px">
+        <div class="card shadow auth-card">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0"><i class="bi bi-shield-lock"></i> Welcome back</h4>
+            </div>
+            <div class="card-body">
+                <form asp-action="Login" method="post">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <input type="hidden" asp-for="ReturnUrl" />
+                    <div class="mb-3">
+                        <label asp-for="Email" class="form-label"></label>
+                        <input asp-for="Email" class="form-control" placeholder="you@example.com" autocomplete="username" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Password" class="form-label"></label>
+                        <div class="input-group">
+                            <input asp-for="Password" class="form-control" placeholder="Your password" autocomplete="current-password" id="loginPassword" />
+                            <button class="btn btn-outline-secondary" type="button" id="toggleLoginPassword" title="Show/Hide password">
+                                <i class="bi bi-eye" id="loginEyeIcon"></i>
+                            </button>
+                        </div>
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input asp-for="RememberMe" class="form-check-input" />
+                        <label asp-for="RememberMe" class="form-check-label">Remember me</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100 py-2"><i class="bi bi-box-arrow-in-right"></i> Login</button>
+                </form>
+                <hr />
+                <p class="text-center mb-0">
+                    <a asp-action="Register">Create new account</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

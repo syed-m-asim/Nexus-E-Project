@@ -1,0 +1,7 @@
+@* List page: all payments in a table with action links. *@
+@model IEnumerable<NexusCommunication.Models.Payment>
+@{ ViewData["Title"] = "Payments"; }
+<h2>Payments <a class="btn btn-sm btn-success" asp-action="Create">Record Payment</a></h2>
+@if (TempData["Success"] != null) { <div class="alert alert-success">@TempData["Success"]</div> }
+<table class="table table-striped"><thead><tr><th>Receipt</th><th>Bill</th><th>Amount</th><th>Mode</th><th>Date</th></tr></thead>
+<tbody>@foreach (var p in Model) { <tr><td>@p.ReceiptNumber</td><td>@p.Bill?.BillNumber</td><td>@p.Amount.ToString("C")</td><td>@p.Mode</td><td>@p.PaidOn.ToString("dd MMM yyyy")</td></tr> }</tbody></table>

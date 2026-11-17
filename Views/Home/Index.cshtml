@@ -1,0 +1,120 @@
+@* Home page: 3D animated hero (Three.js globe), role based tiles and a short overview of the three services. *@
+@{
+    ViewData["Title"] = "Home";
+}
+<section class="hero">
+    <div>
+        <span class="hero-eyebrow"><i class="bi bi-broadcast"></i> Telecom &amp; Internet</span>
+        <h1>Stay connected with <span class="grad-text">Nexus Communication</span></h1>
+        <p class="lead"><span data-typing="Dial-up, Broadband and Landline services.|Track your order with a single ID.|Transparent bills with 12.24% service tax."></span>&nbsp;</p>
+        <div class="hero-cta">
+            <a class="btn btn-primary btn-lg px-4" asp-controller="Search" asp-action="Index"><i class="bi bi-search"></i> Track Status</a>
+            @if (!User.Identity!.IsAuthenticated)
+            {
+                <a class="btn btn-outline-primary btn-lg px-4" asp-controller="Account" asp-action="Register"><i class="bi bi-person-plus"></i> Get Connected</a>
+            }
+            else if (User.IsInRole("Customer"))
+            {
+                <a class="btn btn-success btn-lg px-4" asp-controller="MyPortal" asp-action="PlaceOrder"><i class="bi bi-plus-circle"></i> New Connection</a>
+            }
+        </div>
+    </div>
+    <div class="hero-stage">
+        <canvas id="hero3d"></canvas>
+        <div class="cube-fallback"><div class="big-cube"><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+        <div class="hero-chip chip-1"><i class="bi bi-wifi"></i> Broadband</div>
+        <div class="hero-chip chip-2"><i class="bi bi-telephone"></i> Dial-Up</div>
+        <div class="hero-chip chip-3"><i class="bi bi-telephone-inbound"></i> Landline</div>
+    </div>
+</section>
+
+<div class="section-title">
+    <h2>@(User.Identity!.IsAuthenticated ? "Your workspace" : "What would you like to do?")</h2>
+    <p>Quick access to the tools of your role</p>
+</div>
+<div class="row g-4">
+    <div class="col-md-6 col-lg-4">
+        <a class="nx-tile" asp-controller="Search" asp-action="Index">
+            <div class="card h-100"><div class="card-body">
+                <div class="tile-icon "><i class="bi bi-search"></i></div>
+                <h5>Search Status</h5><p>Check order or connection status by Order ID / Account ID.</p>
+                <span class="btn btn-primary btn-sm">Search <i class="bi bi-arrow-right"></i></span>
+            </div></div>
+        </a>
+    </div>
+    @if (User.IsInRole("RetailEmployee") || User.IsInRole("Admin"))
+    {
+    <div class="col-md-6 col-lg-4">
+        <a class="nx-tile" asp-controller="Orders" asp-action="Create">
+            <div class="card h-100"><div class="card-body">
+                <div class="tile-icon i-green"><i class="bi bi-cart-plus"></i></div>
+                <h5>Place Order</h5><p>Register a customer connection request from the retail outlet.</p>
+                <span class="btn btn-success btn-sm">New Order <i class="bi bi-arrow-right"></i></span>
+            </div></div>
+        </a>
+    </div>
+    }
+    @if (User.IsInRole("Technical") || User.IsInRole("Admin"))
+    {
+    <div class="col-md-6 col-lg-4">
+        <a class="nx-tile" asp-controller="Orders" asp-action="Pending">
+            <div class="card h-100"><div class="card-body">
+                <div class="tile-icon i-orange"><i class="bi bi-tools"></i></div>
+                <h5>Technical</h5><p>Feasibility checks and creating connections.</p>
+                <span class="btn btn-warning btn-sm">Pending Orders <i class="bi bi-arrow-right"></i></span>
+            </div></div>
+        </a>
+    </div>
+    }
+    @if (User.IsInRole("Accounts") || User.IsInRole("Admin"))
+    {
+    <div class="col-md-6 col-lg-4">
+        <a class="nx-tile" asp-controller="Bills" asp-action="Generate">
+            <div class="card h-100"><div class="card-body">
+                <div class="tile-icon i-cyan"><i class="bi bi-receipt-cutoff"></i></div>
+                <h5>Billing</h5><p>Generate bills with 12.24% service tax.</p>
+                <span class="btn btn-info btn-sm">Generate Bill <i class="bi bi-arrow-right"></i></span>
+            </div></div>
+        </a>
+    </div>
+    }
+    @if (User.IsInRole("Admin"))
+    {
+    <div class="col-md-6 col-lg-4">
+        <a class="nx-tile" asp-controller="Plans" asp-action="Index">
+            <div class="card h-100"><div class="card-body">
+                <div class="tile-icon i-purple"><i class="bi bi-gear-wide-connected"></i></div>
+                <h5>Admin Master Data</h5><p>Plans, employees, stores, vendors and stock.</p>
+                <span class="btn btn-dark btn-sm">Manage Plans <i class="bi bi-arrow-right"></i></span>
+            </div></div>
+        </a>
+    </div>
+    }
+    @if (User.IsInRole("Customer"))
+    {
+    <div class="col-md-6 col-lg-4">
+        <a class="nx-tile" asp-controller="MyPortal" asp-action="Index">
+            <div class="card h-100"><div class="card-body">
+                <div class="tile-icon i-green"><i class="bi bi-person-circle"></i></div>
+                <h5>My Portal</h5><p>Your orders, connections and bills in one place.</p>
+                <span class="btn btn-success btn-sm">Open Portal <i class="bi bi-arrow-right"></i></span>
+            </div></div>
+        </a>
+    </div>
+    }
+</div>
+
+<div class="section-title">
+    <h2>Our services</h2>
+    <p>One vendor for voice and internet</p>
+</div>
+<div class="row g-4 mb-3">
+    <div class="col-md-4"><div class="card service-card h-100"><div class="card-body"><i class="bi bi-telephone big"></i><h5 class="mt-3">Dial-Up Internet</h5><p class="text-muted mb-0">Hourly and unlimited plans on your Nexus landline.</p></div></div></div>
+    <div class="col-md-4"><div class="card service-card h-100"><div class="card-body"><i class="bi bi-wifi big"></i><h5 class="mt-3">Broadband</h5><p class="text-muted mb-0">Fast unlimited connections, monthly or quarterly.</p></div></div></div>
+    <div class="col-md-4"><div class="card service-card h-100"><div class="card-body"><i class="bi bi-telephone-inbound big"></i><h5 class="mt-3">Landline</h5><p class="text-muted mb-0">Local and STD plans with clear per-minute rates.</p></div></div></div>
+</div>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="~/js/hero3d.js" asp-append-version="true"></script>
+}

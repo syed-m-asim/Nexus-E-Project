@@ -1,0 +1,7 @@
+@* Delete confirmation page for a employee. The record is deleted only after the user confirms (POST + anti-forgery token). *@
+@model NexusCommunication.Models.Employee
+@{ ViewData["Title"] = "Delete Employee"; }
+<h2>Delete @Model.Name?</h2>
+<form asp-action="Delete" method="post"><input type="hidden" asp-for="Id" />
+<button type="submit" class="btn btn-danger">Delete</button>
+<a asp-action="Index" class="btn btn-secondary">Cancel</a></form>

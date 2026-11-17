@@ -1,0 +1,17 @@
+@model IEnumerable<NexusCommunication.Models.Customer>
+@{ ViewData["Title"] = "Customers"; }
+<h2>Customers <a class="btn btn-sm btn-success" asp-action="Create">Add</a></h2>
+<table class="table table-striped">
+<thead><tr><th>Code</th><th>Name</th><th>Phone</th><th>Email</th><th>Address</th><th class="th-actions">Actions</th></tr></thead>
+<tbody>
+@foreach (var c in Model) {
+<tr>
+<td>@c.CustomerCode</td><td>@c.Name</td><td>@c.Phone</td><td>@c.Email</td><td>@c.Address</td>
+<td>
+<a asp-action="Details" asp-route-id="@c.Id" class="btn btn-sm btn-outline-primary">Details</a>
+<a asp-action="Edit" asp-route-id="@c.Id" class="btn btn-sm btn-outline-secondary">Edit</a>
+</td>
+</tr>
+}
+</tbody>
+</table>

@@ -1,0 +1,8 @@
+@* Delete confirmation page for a feedback. The record is deleted only after the user confirms (POST + anti-forgery token). *@
+@model NexusCommunication.Models.Feedback
+@{ ViewData["Title"] = "Delete Feedback"; }
+<h2>Delete Feedback?</h2>
+<p>Rating: @Model.Rating — @Model.Comments</p>
+<form asp-action="Delete" method="post"><input type="hidden" asp-for="Id" />
+<button type="submit" class="btn btn-danger">Delete</button>
+<a asp-action="Index" class="btn btn-secondary">Cancel</a></form>

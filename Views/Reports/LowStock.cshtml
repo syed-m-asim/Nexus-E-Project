@@ -1,0 +1,14 @@
+@* Products whose stock is at or below the reorder level. *@
+@model IEnumerable<NexusCommunication.Models.Product>
+@{ ViewData["Title"] = "Low Stock"; }
+<h2>Low Stock Report</h2>
+<table class="table table-striped">
+<thead><tr><th>Product</th><th>Stock</th><th>Reorder Level</th><th>Vendor</th></tr></thead>
+<tbody>
+@foreach (var p in Model) {
+<tr class="@(p.StockQty == 0 ? "table-danger" : "table-warning")">
+<td>@p.Name</td><td>@p.StockQty</td><td>@p.ReorderLevel</td><td>@p.Vendor?.Name</td></tr>
+}
+</tbody>
+</table>
+<a asp-action="Index" class="btn btn-secondary">Back</a>

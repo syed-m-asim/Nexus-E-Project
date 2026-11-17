@@ -1,0 +1,12 @@
+@* Number of orders per status. *@
+@{ ViewData["Title"] = "Order Status Summary"; }
+<h2>Orders by Status</h2>
+<table class="table table-striped">
+<thead><tr><th>Status</th><th>Count</th></tr></thead>
+<tbody>
+@foreach (dynamic row in Model) {
+<tr><td>@row.Status</td><td>@row.Count</td></tr>
+}
+</tbody>
+</table>
+<a asp-action="Index" class="btn btn-secondary">Back</a>

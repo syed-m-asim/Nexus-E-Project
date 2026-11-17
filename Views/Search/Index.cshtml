@@ -1,0 +1,52 @@
+@* Public search page: by order id, by account id and the advanced search. Input patterns are checked again in SearchController. *@
+@{
+    ViewData["Title"] = "Search Status";
+}
+<h2>Search Order / Connection Status</h2>
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+<div class="row g-4 mt-2">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">Search by Order ID</div>
+            <div class="card-body">
+                <form asp-action="Order" method="get">
+                    <div class="input-group">
+                        <input name="orderNumber" class="form-control" placeholder="e.g. D0000000001" maxlength="11" pattern="[DdBbTt][0-9]{10}" title="One letter (D, B or T) followed by 10 digits" required />
+                        <button class="btn btn-primary" type="submit">Search Order</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">Search by Account ID</div>
+            <div class="card-body">
+                <form asp-action="Account" method="get">
+                    <div class="input-group">
+                        <input name="accountId" class="form-control" placeholder="e.g. D001000000000001" maxlength="16" pattern="[DdBbTt][0-9]{15}" title="One letter (D, B or T) followed by 15 digits" required />
+                        <button class="btn btn-primary" type="submit">Search Account</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card mt-4">
+    <div class="card-header">Advanced Search</div>
+    <div class="card-body">
+        <form asp-action="Advanced" method="post">
+            <div class="row g-2">
+                <div class="col-12 col-sm-6 col-md-3"><input name="name" class="form-control" placeholder="Customer name" maxlength="150" /></div>
+                <div class="col-12 col-sm-6 col-md-3"><input name="contact" class="form-control" placeholder="Contact number" maxlength="30" pattern="[0-9+ \-]{3,30}" title="Digits, spaces, + and - only" /></div>
+                <div class="col-12 col-sm-6 col-md-2"><select name="connectionType" class="form-select"><option value="">All types</option><option value="D">Dial-up</option><option value="B">Broadband</option><option value="T">Telephone only</option></select></div>
+                <div class="col-12 col-sm-6 col-md-2"><input name="fromDate" type="date" class="form-control" /></div>
+                <div class="col-12 col-sm-6 col-md-2"><input name="toDate" type="date" class="form-control" /></div>
+                <div class="col-12 col-sm-6 col-md-2"><button class="btn btn-secondary w-100" type="submit">Search</button></div>
+            </div>
+        </form>
+    </div>
+</div>

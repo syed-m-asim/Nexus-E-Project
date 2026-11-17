@@ -1,0 +1,17 @@
+@* Dashboard with the main counters. *@
+@{ ViewData["Title"] = "Reports"; }
+<h2>Reports Dashboard</h2>
+<div class="row g-3">
+<div class="col-6 col-lg-3"><div class="card text-center"><div class="card-body"><h3>@ViewBag.TotalCustomers</h3><p>Customers</p></div></div></div>
+<div class="col-6 col-lg-3"><div class="card text-center"><div class="card-body"><h3>@ViewBag.TotalOrders</h3><p>Orders</p></div></div></div>
+<div class="col-6 col-lg-3"><div class="card text-center"><div class="card-body"><h3>@ViewBag.ActiveConnections</h3><p>Active Connections</p></div></div></div>
+<div class="col-6 col-lg-3"><div class="card text-center"><div class="card-body"><h3>@ViewBag.PendingOrders</h3><p>Pending Orders</p></div></div></div>
+<div class="col-6 col-lg-3"><div class="card text-center border-warning"><div class="card-body"><h3>@ViewBag.UnpaidBills</h3><p>Unpaid Bills</p></div></div></div>
+<div class="col-6 col-lg-3"><div class="card text-center border-danger"><div class="card-body"><h3>@(((decimal)ViewBag.OverdueAmount).ToString("C"))</h3><p>Overdue Amount</p></div></div></div>
+<div class="col-6 col-lg-3"><div class="card text-center border-info"><div class="card-body"><h3>@ViewBag.LowStock</h3><p>Low Stock Items</p></div></div></div>
+</div>
+<div class="mt-4">
+<a class="btn btn-outline-danger" asp-action="OverdueBills">Overdue Bills</a>
+<a class="btn btn-outline-info" asp-action="LowStock">Low Stock</a>
+<a class="btn btn-outline-secondary" asp-action="OrderStatusSummary">Order Status Summary</a>
+</div>

@@ -1,0 +1,91 @@
+
+@* List page: all products in a table with action links. *@
+@model IEnumerable<NexusCommunication.Models.Product>
+
+@{
+    ViewData["Title"] = "Products / Stock";
+}
+
+<style>
+    .product-stock-image {
+        width: 120px;
+        height: 80px;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+        margin: 5px auto;
+        padding: 3px;
+        border-radius: 10px;
+        border: 1px solid rgba(0, 212, 255, 0.4);
+        background: #111827;
+        box-shadow: 0 4px 12px rgba(0, 212, 255, 0.15);
+    }
+</style>
+<h2 class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+    <span>Products / Stock</span>
+
+    @if (User.IsInRole("Admin"))
+    {
+        <a class="btn btn-sm btn-success" asp-action="Create">Add</a>
+    }
+</h2>
+
+<div class="product-table-wrapper">
+    <table class="table table-striped product-stock-table">
+        <thead>
+            <tr>
+                <th class="product-image-cell">Image</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Stock</th>
+                <th>Reorder</th>
+                <th>Vendor</th>
+                <th>Rental</th>
+                <th class="product-actions">Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var p in Model)
+            {
+                <tr>
+                    <td class="product-image-cell">
+                        @if (!string.IsNullOrEmpty(p.ImagePath))
+                        {
+                            <img src="@p.ImagePath"
+                                 class="product-stock-image"
+                                 alt="@p.Name" />
+                        }
+                        else
+                        {
+                            <span class="product-noimg">No image</span>
+                        }
+                    </td>
+
+                    <td>@p.Name</td>
+                    <td>@p.Category</td>
+                    <td>@p.StockQty</td>
+                    <td>@p.ReorderLevel</td>
+                    <td>@p.Vendor?.Name</td>
+                    <td>@p.MonthlyRental.ToString("C")</td>
+
+                    <td class="product-actions">
+                        <a asp-action="Details"
+                           asp-route-id="@p.Id">Details</a>
+                        |
+                        <a asp-action="Edit"
+                           asp-route-id="@p.Id">Edit</a>
+
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <span> | </span>
+                            <a asp-action="Delete"
+                               asp-route-id="@p.Id"
+                               class="text-danger">Delete</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

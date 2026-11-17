@@ -1,0 +1,9 @@
+@* List page: all cities in a table with action links. *@
+@model IEnumerable<NexusCommunication.Models.City>
+@{ ViewData["Title"] = "Cities"; }
+<h2>Cities <a class="btn btn-sm btn-success" asp-action="Create">Add</a></h2>
+<table class="table table-striped"><thead><tr><th>Name</th><th>Code</th><th class="th-actions">Actions</th></tr></thead>
+<tbody>@foreach (var c in Model) {
+<tr><td>@c.Name</td><td>@c.Code</td>
+<td><a asp-action="Edit" asp-route-id="@c.Id">Edit</a> | <a asp-action="Delete" asp-route-id="@c.Id" class="text-danger">Delete</a></td></tr>
+}</tbody></table>

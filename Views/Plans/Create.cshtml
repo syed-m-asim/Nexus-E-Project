@@ -1,0 +1,22 @@
+@* Create-plan form (Admin). Ranges for price, validity, hours, speed and call rates come from the Plan model. *@
+@model NexusCommunication.Models.Plan
+@{ ViewData["Title"] = "Create Plan"; }
+<h2>Create Plan</h2>
+<form asp-action="Create" method="post">
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="mb-2"><label asp-for="Name"></label><input asp-for="Name" placeholder="e.g. Broadband Unlimited 64Kbps Monthly" class="form-control" required /><span asp-validation-for="Name" class="text-danger"></span></div>
+<div class="mb-2"><label asp-for="ConnectionType"></label><select asp-for="ConnectionType" class="form-select" required asp-items="Html.GetEnumSelectList<NexusCommunication.Models.ConnectionType>()"><option value="">-- Select connection type --</option></select><span asp-validation-for="ConnectionType" class="text-danger"></span></div>
+<div class="mb-2"><label asp-for="PlanGroup"></label><input asp-for="PlanGroup" placeholder="e.g. Hourly Basis" class="form-control" required /><span asp-validation-for="PlanGroup" class="text-danger"></span></div>
+<div class="mb-2"><label asp-for="Price"></label><input asp-for="Price" placeholder="e.g. 225.00" class="form-control" required /><span asp-validation-for="Price" class="text-danger"></span></div>
+<div class="mb-2"><label asp-for="ValidityDays"></label><input asp-for="ValidityDays" placeholder="e.g. 30" class="form-control" required /><span asp-validation-for="ValidityDays" class="text-danger"></span></div>
+<div class="mb-2"><label asp-for="Hours"></label><input asp-for="Hours" placeholder="e.g. 30 (hourly plans only)" class="form-control" /><span asp-validation-for="Hours" class="text-danger"></span></div>
+<div class="mb-2"><label asp-for="SpeedKbps"></label><input asp-for="SpeedKbps" placeholder="e.g. 64 (unlimited plans only)" class="form-control" /><span asp-validation-for="SpeedKbps" class="text-danger"></span></div>
+<div class="mb-2"><label asp-for="LocalCallRate"></label><input asp-for="LocalCallRate" placeholder="e.g. 0.55 per minute" class="form-control" /><span asp-validation-for="LocalCallRate" class="text-danger"></span></div>
+<div class="mb-2"><label asp-for="StdCallRate"></label><input asp-for="StdCallRate" placeholder="e.g. 2.25 per minute" class="form-control" /><span asp-validation-for="StdCallRate" class="text-danger"></span></div>
+<div class="mb-2"><label asp-for="MobileMessageRate"></label><input asp-for="MobileMessageRate" placeholder="e.g. 1.00 per minute" class="form-control" /><span asp-validation-for="MobileMessageRate" class="text-danger"></span></div>
+<div class="mb-2"><label asp-for="Description"></label><textarea asp-for="Description" placeholder="Short description (optional)" class="form-control"></textarea><span asp-validation-for="Description" class="text-danger"></span></div>
+<div class="mb-2 form-check"><input asp-for="IsActive" class="form-check-input" /><label asp-for="IsActive" class="form-check-label"></label></div>
+<button type="submit" class="btn btn-primary">Save</button>
+<a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }
